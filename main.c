@@ -4,7 +4,30 @@
 #include <locale.h>
 #include <string.h>
 
+// criando uma estrutura de dados hoterogenea por enquanto
+struct Musica
+{
+    char nome[50];
+    // int duracao;
+};
+
 
 void main(void){
+    setlocale(LC_ALL, "Portuguese");
+    struct Musica listaDeMusicas;
+
     
 }
+
+
+
+void buscarMusica(){}
+void contarMusicas(){}
+
+void removeMusica(){}
+void modifMusica(){}
+
+void addMusica(){}
+
+void lendoMusica(){}
+
