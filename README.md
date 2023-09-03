@@ -3,15 +3,19 @@
 
 Atividade - Lista de Exercícios - Desenvolvimento em linguagem C ou Python
 
-    Implemente uma lista circular com nomes de músicas a qual t
+Implemente uma lista circular com nomes de músicas a qual tenha as seguintes características:
     
-    Tenha as seguintes características:
-        Alocação de memória dinâmica para as músicas inseridas
-        Uma função de busca de músicas por nomes
-        Contagem da quantidade de músicas presentes na lista
-        Remoção de músicas
-        Adição de músicas
-        A última música aponta para a primeira música da lista.
+        1. Alocação de memória dinâmica para as músicas inseridas
+        
+        2. Uma função de busca de músicas por nomes
+        
+        3. Contagem da quantidade de músicas presentes na lista
+        
+        4. Remoção de músicas
+        
+        5. Adição de músicas
+        
+        6. A última música aponta para a primeira música da lista.
 
  
 
