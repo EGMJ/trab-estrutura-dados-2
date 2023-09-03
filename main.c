@@ -16,6 +16,8 @@ void main(void){
     setlocale(LC_ALL, "Portuguese");
     struct Musica listaDeMusicas;
 
+    strcpy(listaDeMusicas.nome,"teste");
+    printf("%s",listaDeMusicas.nome);
     
 }
 
