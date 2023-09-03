@@ -5,19 +5,29 @@
 #include <string.h>
 
 // criando uma estrutura de dados hoterogenea por enquanto
-struct Musica
-{
+struct Musica{
     char nome[50];
     // int duracao;
+    struct Musica *proxima;
 };
+
+// uma lista de musicas
+struct ListaMusicas {
+    struct Musica *inicio;
+    struct Musica *fim; 
+    int tam; // tamanho da lista e da quantidade de musicas
+};
+
 
 
 void main(void){
     setlocale(LC_ALL, "Portuguese");
-    struct Musica listaDeMusicas;
+    // inicializando a lista.
+    struct ListaMusicas listaDeMusicas;
 
-    strcpy(listaDeMusicas.nome,"teste");
-    printf("%s",listaDeMusicas.nome);
+    // adicionando uma musica no inicio
+    strcpy(listaDeMusicas.inicio->nome,"teste");
+    printf("%s",listaDeMusicas.inicio->nome);
     
 }
 

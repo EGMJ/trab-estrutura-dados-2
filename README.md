@@ -40,3 +40,11 @@ Bons estudos.
 
 Atenciosamente
 Prof. Juliano Ratusznei
+
+
+fontes do dia acessado em 3/9 as 17
+
+https://wagnergaspar.com/como-implementar-uma-lista-circular-lista-encadeada-circular/
+
+
+https://www.clubedohardware.com.br/forums/topic/1493153-qual-a-diferen%C3%A7a-da-fun%C3%A7%C3%A3o-struct-para-typedef-struct-e-quando-devo-usar/
