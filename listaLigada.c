@@ -20,7 +20,7 @@ int main(void) {
     Lista *lista;
     inicializar(&lista);
     inserirNaListaValor(&lista, 5);
-    // inserirNaListaValor(&lista, 10);
+    inserirNaListaValor(&lista, 10);
     // inserirNaListaValor(&lista, 12);
 	// //apagarLista(&lista);
     exibirLista(&lista);

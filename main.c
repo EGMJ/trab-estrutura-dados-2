@@ -19,7 +19,7 @@ struct Musica{
 // };
 
 void Inicializar(struct Musica **musica);
-void InserirMusica(struct Musica **musica, char nome);
+void InserirMusica(struct Musica **musica, char *nome);
 
 
 void main(void){
@@ -27,7 +27,7 @@ void main(void){
     // // inicializando a lista.
     struct Musica *musica;
     Inicializar(&musica);
-    InserirMusica(&musica, 'a'); // NAO consigo enviar um texto
+    InserirMusica(&musica, "a"); // NAO consigo enviar um texto
     // // adicionando uma musica no inicio
     // strcpy(listaDeMusicas.inicio->nome,"teste");
     // printf("%s",listaDeMusicas.inicio->nome);
@@ -41,17 +41,12 @@ void Inicializar(struct Musica **musica){
 }
 
 // Inserindo musicas na lista
-void InserirMusica(struct Musica **musica, char nome){
-    // verificar se o primeiros valor esta vazio
-    if(*musica == NULL){
-        // alocando dinamicamente baseado no tamanha da estrutura.
-        *musica = (struct Musica *) malloc(sizeof(struct Musica));
-        // atribuindo o valor
-        (*musica)->nome = nome;
-        // definindo o proximo item da lista como nulo 
-        (*musica)->proxima = NULL;
-    }
-    else{ // se nao estiver nulo aplicar a recursividade para tratar o proximo como inicio
+void InserirMusica(struct Musica **musica, char *nome){
+    if(*musica == NULL){// verificar se o primeiros valor esta vazio
+        *musica = (struct Musica *) malloc(sizeof(struct Musica)); // alocando dinamicamente baseado no tamanha da estrutura.
+        strcpy((*musica)->nome, nome); // atribuindo o valor do char para o nome da estrutura. 
+        (*musica)->proxima = NULL; // definindo o proximo item da lista como nulo
+    }else{ // se nao estiver nulo aplicar a recursividade para tratar o proximo como inicio
         InserirMusica(&((*musica)->proxima), nome);
     }
 }
