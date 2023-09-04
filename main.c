@@ -70,7 +70,6 @@ void ListarMusicas(struct Musica **musica){
         printf("%s, ",(*musica)->nome);
         if((*musica)->proxima !=NULL){
             ListarMusicas(&((*musica)->proxima));
-            // exibirLista(&((*lista)->proximo));
         }
     }else{
         printf("A lista está vazia...");
