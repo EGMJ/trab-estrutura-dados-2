@@ -27,7 +27,9 @@ void main(void){
     // // inicializando a lista.
     struct Musica *musica;
     Inicializar(&musica);
-    InserirMusica(&musica, "a"); // NAO consigo enviar um texto
+    InserirMusica(&musica, "teste"); // envio manual de musicas
+    printf("%s", &musica->nome);
+
     // // adicionando uma musica no inicio
     // strcpy(listaDeMusicas.inicio->nome,"teste");
     // printf("%s",listaDeMusicas.inicio->nome);
