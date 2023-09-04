@@ -20,6 +20,7 @@ struct Musica{
 
 void Inicializar(struct Musica **musica);
 void InserirMusica(struct Musica **musica, char *nome);
+int contarMusicas(struct Musica **musica, int cont);
 
 
 void main(void){
@@ -27,19 +28,20 @@ void main(void){
     // // inicializando a lista.
     struct Musica *musica;
     Inicializar(&musica);
-    InserirMusica(&musica, "teste"); // envio manual de musicas
-    printf("%s", &musica->nome);
 
-    // // adicionando uma musica no inicio
-    // strcpy(listaDeMusicas.inicio->nome,"teste");
-    // printf("%s",listaDeMusicas.inicio->nome);
+    // adicionando uma musica no inicio
+    InserirMusica(&musica, "teste\n\n"); // envio manual de musicas
+    InserirMusica(&musica, "teste2\n\n"); // envio manual de musicas
+    InserirMusica(&musica, "teste"); // envio manual de musicas
+    printf("%d \n",contarMusicas(&musica,0)); // conta e imprime a quantidade de musicas
+    printf("%s", &musica->nome);
     
 }
 
 // Inicializando a lista de musicas
 void Inicializar(struct Musica **musica){
     *musica = NULL;
-    printf("Lista de musicas inicializada");
+    printf("Lista de musicas inicializada\n\n");
 }
 
 // Inserindo musicas na lista
@@ -53,20 +55,23 @@ void InserirMusica(struct Musica **musica, char *nome){
     }
 }
 
+int contarMusicas(struct Musica **musica, int cont){
+    if(*musica != NULL){
+        contarMusicas(&(*musica)->proxima, ++cont);
+    }else{
+        return cont;
+    }
+}
 
-// func que adciona uma musica no inicio da lista
-// void InserirMusicaNaLista(struct ListaMusicas *playlist, char nome){
-    // inicializar a struct Musicas dinamicamente
-    // struct Musica *musica = malloc(sizeof(struct Musica));
 
-
-
-// }
-
+/* TODO
+    arrumar os warning de formato no char nome[50] alterar para dinamico
+    funcao listar musicas
+    funcao para remover musicas de duas formas, por nome e por ordem
+*/
 
 
 void buscarMusica(){}
-void contarMusicas(){}
 
 void removeMusica(){}
 void modifMusica(){}
