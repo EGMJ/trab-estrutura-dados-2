@@ -21,6 +21,7 @@ struct Musica{
 void Inicializar(struct Musica **musica);
 void InserirMusica(struct Musica **musica, char *nome);
 int contarMusicas(struct Musica **musica, int cont);
+void ListarMusicas(struct Musica **musica);
 
 
 void main(void){
@@ -34,7 +35,8 @@ void main(void){
     InserirMusica(&musica, "teste2\n\n"); // envio manual de musicas
     InserirMusica(&musica, "teste"); // envio manual de musicas
     printf("%d \n",contarMusicas(&musica,0)); // conta e imprime a quantidade de musicas
-    printf("%s", &musica->nome);
+    // printf("%s", &musica->nome);
+    ListarMusicas(&musica);
     
 }
 
@@ -63,6 +65,18 @@ int contarMusicas(struct Musica **musica, int cont){
     }
 }
 
+void ListarMusicas(struct Musica **musica){
+    if((*musica) !=NULL){
+        printf("%s, ",(*musica)->nome);
+        if((*musica)->proxima !=NULL){
+            ListarMusicas(&((*musica)->proxima));
+            // exibirLista(&((*lista)->proximo));
+        }
+    }else{
+        printf("A lista está vazia...");
+    }
+}
+
 
 /* TODO
     arrumar os warning de formato no char nome[50] alterar para dinamico
@@ -75,7 +89,6 @@ void buscarMusica(){}
 
 void removeMusica(){}
 void modifMusica(){}
-
 
 void lendoMusica(){}
 
