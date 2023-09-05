@@ -33,30 +33,28 @@ void main(void){
 
     char *nomeAuxiliar;
 
+    // lendo e adicionando uma musica no inicio
     lendoMusica(&nomeAuxiliar);
-
-    // strcpy((musica)->nome, nomeAuxiliar); // atribuindo o valor do char para o nome da estrutura. 
     inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
 
-    // adicionando uma musica no inicio
-    // inserirMusica(&musica, "teste1\n"); // envio manual de musicas
-    // inserirMusica(&musica, "teste2\n"); // envio manual de musicas
-    // inserirMusica(&musica, "teste3"); // envio manual de musicas
-    
-    // inserirMusica(&musica, musica->nome); // envio manual de musicas
+    lendoMusica(&nomeAuxiliar);
+    inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
 
-    // printf("teste de imprecao %s", nomeTeste);
+    lendoMusica(&nomeAuxiliar);
+    inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
 
-    // inserirMusica(&musica, nome   Teste); // envio manual de musicas
+    lendoMusica(&nomeAuxiliar);
+    inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
+
     printf("A quantidade de musicas na lista: %d\n",contarMusicas(&musica,0)); // conta e imprime a quantidade de musicas
  
-    listarMusicas(&musica);   
+    //listarMusicas(&musica);   
 }
 
 // Inicializando a lista de musicas
 void Inicializar(struct Musica **musica){
     *musica = NULL;
-    printf("Lista de musicas inicializada\n\n");
+    printf("Lista de musicas inicializada\n");
 }
 
 // Inserindo musicas na lista
@@ -80,7 +78,7 @@ int contarMusicas(struct Musica **musica, int cont){
 
 void listarMusicas(struct Musica **musica){
     if((*musica) !=NULL){
-        printf("%s, ",(*musica)->nome);
+        printf("%s",(*musica)->nome);
         if((*musica)->proxima !=NULL){
             listarMusicas(&((*musica)->proxima));
         }
@@ -102,6 +100,11 @@ void listarMusicas(struct Musica **musica){
         5. Adição de músicas sem ser manualmente
       
         6. A última música aponta para a primeira música da lista.
+
+    
+    PROBLEMA IDENTIFICADO:
+        1. ao adicionar um item se só apertar enter entra como um item
+
 */
 
 
@@ -113,7 +116,7 @@ void lendoMusica(char **nomeMusica){
      * e dependendo do valor selecionado atribui ao nome da musica
     */
 
-    printf("Inserir nome da musica: \n");
+    printf("Inserir nome da musica: ");
     fgets(auxNome,200,stdin);
     *nomeMusica = (char *) malloc(strlen(auxNome)*sizeof(char));
     strcpy(*nomeMusica, auxNome);
