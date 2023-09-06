@@ -4,7 +4,7 @@
 #include <locale.h>
 #include <string.h>
 
-// criando uma estrutura de dados hoterogenea por enquanto
+// criando uma estrutura de dados hoterogenea por enquanto ou o nó da lista
 struct Musica{
     // char *nome;
     char nome[50];
@@ -12,14 +12,14 @@ struct Musica{
     struct Musica *proxima;
 };
 
-// uma lista de musicas desnecessario
-// struct ListaMusicas {
-//     struct Musica *inicio;
-//     struct Musica *fim; 
-//     int tam; // tamanho da lista e da quantidade de musicas
-// };
+// uma lista de musicas
+struct Lista {
+    struct Musica *inicio;
+    struct Musica *fim; 
+    int tam; // tamanho da lista e da quantidade de musicas
+};
 
-void Inicializar(struct Musica **musica);
+void inicializarLista(struct Lista *lista);
 void inserirMusica(struct Musica **musica, char *nome);
 int contarMusicas(struct Musica **musica, int cont);
 void listarMusicas(struct Musica **musica);
@@ -28,32 +28,34 @@ void lendoMusica(char **nomeMusica);
 void main(void){
     setlocale(LC_ALL, "Portuguese");
     // // inicializando a lista.
-    struct Musica *musica;
-    Inicializar(&musica);
+    struct Lista lista;
+    inicializarLista(&lista);
 
-    char *nomeAuxiliar;
+    // char *nomeAuxiliar;
 
-    // lendo e adicionando uma musica no inicio
-    lendoMusica(&nomeAuxiliar);
-    inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
+    // // lendo e adicionando uma musica no inicio
+    // lendoMusica(&nomeAuxiliar);
+    // inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
 
-    lendoMusica(&nomeAuxiliar);
-    inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
+    // lendoMusica(&nomeAuxiliar);
+    // inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
 
-    lendoMusica(&nomeAuxiliar);
-    inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
+    // lendoMusica(&nomeAuxiliar);
+    // inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
 
-    lendoMusica(&nomeAuxiliar);
-    inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
+    // lendoMusica(&nomeAuxiliar);
+    // inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
 
-    printf("A quantidade de musicas na lista: %d\n",contarMusicas(&musica,0)); // conta e imprime a quantidade de musicas
+    // printf("A quantidade de musicas na lista: %d\n",contarMusicas(&musica,0)); // conta e imprime a quantidade de musicas
  
     //listarMusicas(&musica);   
 }
 
 // Inicializando a lista de musicas
-void Inicializar(struct Musica **musica){
-    *musica = NULL;
+    void inicializarLista(struct Lista *lista){
+    lista->inicio = NULL;
+    lista->fim = NULL;
+    lista->tam = 0;
     printf("Lista de musicas inicializada\n");
 }
 
