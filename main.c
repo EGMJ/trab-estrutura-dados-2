@@ -21,6 +21,7 @@ struct Lista {
 
 void inicializarLista(struct Lista *lista);
 void inserirNoInicio(struct Lista *lista, char *nome);
+void inserirNoFim(struct Lista *lista, char *nome);
 void inserirMusica(struct Musica **musica, char *nome);
 int contarMusicas(struct Musica **musica, int cont);
 void listarMusicas(struct Musica **musica);
@@ -33,6 +34,7 @@ void main(void){
     inicializarLista(&lista);
 
     inserirNoInicio(&lista, "teste");
+    inserirNoFim(&lista, "asdf");
     // char *nomeAuxiliar;
 
     // // lendo e adicionando uma musica no inicio
@@ -89,6 +91,34 @@ void inserirNoInicio(struct Lista *lista, char *nome){
     }
 }
 
+void inserirNoFim(struct Lista *lista, char *nome){
+    struct Musica *musica, *aux = (struct Musica *) malloc(sizeof(struct Musica));
+    
+    if(musica){
+        // atribuindo o valor 
+        strcpy(musica->nome, nome); 
+        // se for nulo significa que estamo atribuindo o primeiro elemento
+        if(lista->inicio == NULL){ 
+            // crianco a primeira musica
+            lista->inicio = musica;
+            lista->fim = musica;
+            // determinando que o fim aponte para o inicio da lista;
+            lista->fim->proxima = lista->inicio;
+        }else{
+            // definido que o antigo fim aponte para a musica inserida (novo fim)
+            lista->fim->proxima = musica;
+            // definindo que o fim da lista é a nova musica
+            lista->fim = musica;
+            // definindo que o fim da lista (ultima musica) aponta para o inicio da lista (primeira musica)
+            // lista->fim->proxima = lista->inicio;
+            musica->proxima = lista->inicio;            
+        }
+        lista->tam++;
+    }else{
+        printf("Erra na alocação");
+    }
+
+}
 
 // Inserindo musicas na lista
 void inserirMusica(struct Musica **musica, char *nome){
