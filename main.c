@@ -20,6 +20,7 @@ struct Lista {
 };
 
 void inicializarLista(struct Lista *lista);
+void inserirNoInicio(struct Lista *lista, char *nome);
 void inserirMusica(struct Musica **musica, char *nome);
 int contarMusicas(struct Musica **musica, int cont);
 void listarMusicas(struct Musica **musica);
@@ -31,6 +32,7 @@ void main(void){
     struct Lista lista;
     inicializarLista(&lista);
 
+    inserirNoInicio(&lista, "teste");
     // char *nomeAuxiliar;
 
     // // lendo e adicionando uma musica no inicio
@@ -53,11 +55,40 @@ void main(void){
 
 // Inicializando a lista de musicas
     void inicializarLista(struct Lista *lista){
+    // define o inicio da lista como nulo
     lista->inicio = NULL;
+    // define o fim da lista como nulo
     lista->fim = NULL;
-    lista->tam = 0;
+    // define o tamanho da lista como 0
+    lista->tam = 0; 
     printf("Lista de musicas inicializada\n");
 }
+// para inserir a musica no inicio da lista
+void inserirNoInicio(struct Lista *lista, char *nome){
+    struct Musica *musica = (struct Musica *) malloc(sizeof(struct Musica)); // criando uma estrutura da musica ou do nó
+
+    // se a estrutura da musica for criada
+    if(musica){ 
+        // musica->nome = strdup(nome);
+        // atricuir o nome inserido ao nome da estrutura
+        strcpy(musica->nome, nome); 
+        // atribui o ponteiro inicio da lista para a proxoma musica 
+        musica->proxima = lista->inicio;
+        // atribui a estrutura musica ao inicio da lista
+        lista->inicio = musica;
+        // somente ira testar se é o primeiro item da lista
+        if(lista->fim == NULL){
+            lista->fim = musica;
+        }
+        // o fim aponta para a nova musica ou para o inicio da lista
+        lista->fim->proxima = lista->inicio; 
+        // aumenta o tamanho da lista que era zero
+        lista->tam++;
+    }else{
+        printf("Erro na alocação de memória");
+    }
+}
+
 
 // Inserindo musicas na lista
 void inserirMusica(struct Musica **musica, char *nome){
