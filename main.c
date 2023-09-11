@@ -186,6 +186,21 @@ struct Musica* removeMusica(struct Lista *lista, char *nome){
     return remover;
 }
 
+
+struct Musica* buscarMusica(struct Lista *lista, char *nome){
+    struct Musica *aux = lista->inicio;
+    if(aux){
+        do{
+            if(aux->proxima == nome){
+                return aux;
+            }
+            aux = aux->proxima;
+        } while (aux != lista->inicio);
+    }
+    return NULL;
+}
+
+
 // Inserindo musicas na lista
 void inserirMusica(struct Musica **musica, char *nome){
     if(*musica == NULL){// verificar se o primeiros valor esta vazio
