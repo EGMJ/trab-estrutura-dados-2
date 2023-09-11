@@ -22,7 +22,7 @@ void inicializarLista(struct Lista *lista);
 void inserirNoInicio(struct Lista *lista, char *nome);
 void inserirNoFim(struct Lista *lista, char *nome);
 struct Musica* removeMusica(struct Lista *lista, char *nome);
-// struct Musica* buscarMusica(struct Lista *lista, char *nome);
+struct Musica* buscarMusica(struct Lista *lista, char *nome);
 
 void inserirMusica(struct Musica **musica, char *nome);
 int contarMusicas(struct Musica **musica, int cont);
