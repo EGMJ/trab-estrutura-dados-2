@@ -117,7 +117,56 @@ void inserirNoFim(struct Lista *lista, char *nome){
     }else{
         printf("Erra na alocação");
     }
+}
 
+struct Musica* removeMusica(struct Lista *lista, char *nome){
+    struct Musica *aux, *remover = NULL;
+    if(lista->inicio){
+        // se o inicio da lista for igual ao fim e igual ao nome significa que é o unico elemento na lista
+        if(lista->inicio == lista->fim && lista->inicio->nome == nome){
+            // Então tudo nela vira nulo.
+            remover = lista->inicio;
+            lista->fim = NULL;
+            lista->inicio = NULL;
+            lista->tam--;
+        // agora se o inicio da lista for igual ao nome    
+        }else if(lista->inicio->nome == nome){
+            // o primeiro elemento da lista é removido
+            remover = lista->inicio;
+            // e o segundo elemento da lista passa a ser o primeiro
+            lista->inicio = remover->proxima;
+            // e o fim da lista que apontava para o item excluido aponta para o novo inicio
+            lista->fim->proxima = lista->inicio;
+            lista->tam--; 
+        }else{
+            // um nó auxiliar recebe o inicio da lista
+            aux = lista->inicio;
+            // enquato a proxima musica for direfente do inicio da lista e for diferente do nome
+            while(aux->proxima != lista->inicio && aux->proxima->nome != nome){
+                // a auxiliar recebe a proxima 
+                aux = aux->proxima;
+            }
+            // agora quando a musica auxiliar for igual ao nome da musica selecionada
+            if(aux->proxima->nome == nome){
+                // e o fim da lista for igual a proxima
+                if(lista->fim == aux->proxima){
+                    // remove a proxima
+                    remover = aux->proxima;
+                    // e a lista é atualizada pois a proxima recebe a sua sucessora 
+                    aux->proxima = remover->proxima;
+                    // e o fim aponta para o novo inicio
+                    lista->fim = aux;
+                }else{
+                    // se todas as condicoes estiverem erradas só remove a proxima
+                    remover = aux->proxima;
+                    // e atualiza a proxima musica pois o valor encontrado está no meio e não no inicio ou fim 
+                    aux->proxima = remover->proxima;
+                }
+                lista->tam--;
+            }
+        }
+    }
+    return remover;
 }
 
 // Inserindo musicas na lista
@@ -186,6 +235,5 @@ void lendoMusica(char **nomeMusica){
 }
 
 void buscarMusica(){}
-void removeMusica(){}
 void modifMusica(){}
 
