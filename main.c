@@ -39,6 +39,7 @@ void main(void){
     inserirNoInicio(&lista, "asdf2");
     inserirNoInicio(&lista, "asdf3");
     inserirNoInicio(&lista, "asdf4");
+    removeMusica(&lista, "asdf3");
     // inserirNoFim(&lista, "asdf1");
     // inserirNoFim(&lista, "asdf2");
     // inserirNoFim(&lista, "asdf3");
@@ -118,14 +119,14 @@ struct Musica* removeMusica(struct Lista *lista, char *nome){
     struct Musica *aux, *remover = NULL;
     if(lista->inicio){
         // se o inicio da lista for igual ao fim e igual ao nome significa que é o unico elemento na lista
-        if(lista->inicio == lista->fim && lista->inicio->nome == nome){
+        if(lista->inicio == lista->fim && strcmp(lista->inicio->nome, nome) == 0){
             // Então tudo nela vira nulo.
             remover = lista->inicio;
             lista->fim = NULL;
             lista->inicio = NULL;
             lista->tam--;
         // agora se o inicio da lista for igual ao nome    
-        }else if(lista->inicio->nome == nome){
+        }else if(strcmp(lista->inicio->nome, nome) == 0){
             // o primeiro elemento da lista é removido
             remover = lista->inicio;
             // e o segundo elemento da lista passa a ser o primeiro
@@ -137,12 +138,12 @@ struct Musica* removeMusica(struct Lista *lista, char *nome){
             // um nó auxiliar recebe o inicio da lista
             aux = lista->inicio;
             // enquato a proxima musica for direfente do inicio da lista e for diferente do nome
-            while(aux->proxima != lista->inicio && aux->proxima->nome != nome){
+            while(aux->proxima != lista->inicio && strcmp(aux->proxima->nome, nome) != 0){
                 // a auxiliar recebe a proxima 
                 aux = aux->proxima;
             }
             // agora quando a musica auxiliar for igual ao nome da musica selecionada
-            if(aux->proxima->nome == nome){
+            if(strcmp(aux->proxima->nome, nome) == 0){
                 // e o fim da lista for igual a proxima
                 if(lista->fim == aux->proxima){
                     // remove a proxima
@@ -196,32 +197,17 @@ struct Musica *buscarMusica(struct Lista *lista, char *nome){
     return NULL;
 }
 
-/* TODO
-       
+/* TODO     
         2. Uma função de busca de músicas por nomes
-        
-               
-        2. Uma função de busca de músicas por nomes
-        
         4. Remoção de músicas por nome ou por ordem        
-
         5. Adição de músicas sem ser manualmente
-      
-        6. A última música aponta para a primeira música da lista.
 
-    
     PROBLEMA IDENTIFICADO:
         1. ao adicionar um item se só apertar enter entra como um item
-
 */
 
 void lendoMusica(char **nomeMusica){
     char auxNome[200];
-
-    /**
-     * procedimento para escolher a musica um switch case com uma lista de varias musicas
-     * e dependendo do valor selecionado atribui ao nome da musica
-    */
 
     printf("Inserir nome da musica: ");
     fgets(auxNome,200,stdin);
