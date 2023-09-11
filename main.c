@@ -22,6 +22,7 @@ struct Lista {
 void inicializarLista(struct Lista *lista);
 void inserirNoInicio(struct Lista *lista, char *nome);
 void inserirNoFim(struct Lista *lista, char *nome);
+struct Musica* removeMusica(struct Lista *lista, char *nome);
 void inserirMusica(struct Musica **musica, char *nome);
 int contarMusicas(struct Musica **musica, int cont);
 void listarMusicas(struct Musica **musica);
@@ -35,6 +36,8 @@ void main(void){
 
     inserirNoInicio(&lista, "teste");
     inserirNoFim(&lista, "asdf");
+
+    removeMusica(&lista, "teste");
     // char *nomeAuxiliar;
 
     // // lendo e adicionando uma musica no inicio
