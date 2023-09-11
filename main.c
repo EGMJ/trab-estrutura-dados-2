@@ -23,10 +23,10 @@ void inserirNoInicio(struct Lista *lista, char *nome);
 void inserirNoFim(struct Lista *lista, char *nome);
 struct Musica* removeMusica(struct Lista *lista, char *nome);
 struct Musica* buscarMusica(struct Lista *lista, char *nome);
+void listarMusicas(struct Lista lista);
 
 void inserirMusica(struct Musica **musica, char *nome);
 int contarMusicas(struct Musica **musica, int cont);
-void listarMusicas(struct Lista lista);
 void lendoMusica(char **nomeMusica);
 
 void main(void){
@@ -35,41 +35,26 @@ void main(void){
     struct Lista lista;
     inicializarLista(&lista);
 
-    // inserirNoFim(&lista, "asdf3");
-    // inserirNoFim(&lista, "asdf1");
-    // inserirNoFim(&lista, "asdf2");
     inserirNoInicio(&lista, "teste3");
     inserirNoInicio(&lista, "teste2");
     inserirNoInicio(&lista, "teste1");
+    inserirNoInicio(&lista, "asdf");
+    // inserirNoFim(&lista, "asdf1");
+    // inserirNoFim(&lista, "asdf2");
+    // inserirNoFim(&lista, "asdf3");
+    // inserirNoFim(&lista, "asdf4");
 
 
     listarMusicas(lista);
 
-    // struct Musica *nomeAuxiliar = removeMusica(&lista, "asdf");
-    //  char nomeAuxiliar = buscarMusica(&lista, "asdf");
+    struct Musica *nomeAuxiliar = buscarMusica(&lista, "asdf");
+    //  stru nomeAuxiliar = buscarMusica(&lista, "asdf");
     //  free(nomeAuxiliar->nome);
+    printf("\n\n\nEsse é o nome encontrado: %s\n\n\n", nomeAuxiliar->nome);
 
     printf("%d", lista.tam);
     // printf("%s", nomeAuxiliar);
 
-
-
-    // // lendo e adicionando uma musica no inicio
-    // lendoMusica(&nomeAuxiliar);
-    // inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
-
-    // lendoMusica(&nomeAuxiliar);
-    // inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
-
-    // lendoMusica(&nomeAuxiliar);
-    // inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
-
-    // lendoMusica(&nomeAuxiliar);
-    // inserirMusica(&musica, nomeAuxiliar); // envio manual de musicas
-
-    // printf("A quantidade de musicas na lista: %d\n",contarMusicas(&musica,0)); // conta e imprime a quantidade de musicas
- 
-    //listarMusicas(&musica);   
 }
 
 // Inicializando a lista de musicas
@@ -113,7 +98,7 @@ void inserirNoFim(struct Lista *lista, char *nome){
     
     if(musica){
         // atribuindo o valor 
-        strcpy(musica->nome, nome); 
+        strncpy(musica->nome, nome,sizeof(musica->nome)); 
         // se for nulo significa que estamo atribuindo o primeiro elemento
         if(lista->inicio == NULL){ 
             // crianco a primeira musica
@@ -134,6 +119,49 @@ void inserirNoFim(struct Lista *lista, char *nome){
     }else{
         printf("Erra na alocação");
     }    
+
+    /*
+    void inserirNoFim(struct Node** cabeca, const char* str) {
+    struct Node* novoNo = criarNo(str);
+    if (novoNo == NULL) {
+        printf("Erro: Falha ao alocar memória para o novo nó.\n");
+        return;
+    }
+    
+    if (*cabeca == NULL) {
+        *cabeca = novoNo;
+        novoNo->proximo = novoNo;
+    } else {
+        struct Node* temp = *cabeca;
+        while (temp->proximo != *cabeca) {
+            temp = temp->proximo;
+        }
+        temp->proximo = novoNo;
+        novoNo->proximo = *cabeca;
+    }
+}
+
+// com nome sendo alocado dinamicamente
+void inserirNoFim(struct Node **cabeca, const char *str) {
+    struct Node *novoNo = criarNo(str);
+    if (novoNo == NULL) {
+        printf("Erro: Falha ao alocar memória para o novo nó.\n");
+        return;
+    }
+
+    if (*cabeca == NULL) {
+        *cabeca = novoNo;
+        novoNo->proximo = novoNo;
+    } else {
+        struct Node *temp = *cabeca;
+        while (temp->proximo != *cabeca) {
+            temp = temp->proximo;
+        }
+        temp->proximo = novoNo;
+        novoNo->proximo = *cabeca;
+    }
+}
+    */
 }
 
 struct Musica* removeMusica(struct Lista *lista, char *nome){
@@ -187,12 +215,31 @@ struct Musica* removeMusica(struct Lista *lista, char *nome){
 }
 
 
-struct Musica* buscarMusica(struct Lista *lista, char *nome){
+void listarMusicas(struct Lista lista){
+    struct Musica *musica = lista.inicio;
+    if(musica){
+        do
+        {
+            printf("%s\n", musica->nome);
+            musica = musica->proxima;
+        } while (musica != lista.inicio);
+        printf("\n Inicio: %s", lista.inicio->nome);
+        printf("\n Fim: %s", lista.fim->nome);
+        printf("\n Proxima do Fim (inicio): %s", lista.fim->proxima->nome);
+
+        printf("\n\n");
+
+    }else{
+        printf("A lista está vazia...");
+    }
+}
+
+struct Musica *buscarMusica(struct Lista *lista, char *nome){
     struct Musica *aux = lista->inicio;
-    if(aux){
+    if(aux){ // se ha uma lista 
         do{
-            if(aux->proxima == nome){
-                return aux;
+            if(strcmp(aux->nome, nome) == 0){ // verifica se tem alguma diferença entre as strings e se nao tiver
+                return aux; // retorna o auxiliar
             }
             aux = aux->proxima;
         } while (aux != lista->inicio);
@@ -220,24 +267,6 @@ int contarMusicas(struct Musica **musica, int cont){
     }
 }
 
-void listarMusicas(struct Lista lista){
-    struct Musica *musica = lista.inicio;
-    if(musica){
-        do
-        {
-            printf("%s\n", musica->nome);
-            musica = musica->proxima;
-        } while (musica != lista.inicio);
-        printf("\n Inicio: %s", lista.inicio);
-        printf("\n Fim: %s", lista.fim);
-        printf("\n Proxima do Fim (inicio): %s", lista.fim->proxima);
-
-        printf("\n\n");
-
-    }else{
-        printf("A lista está vazia...");
-    }
-}
 
 
 
