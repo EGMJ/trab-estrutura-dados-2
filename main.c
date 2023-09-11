@@ -23,7 +23,6 @@ void inserirNoFim(struct Lista *lista, char *nome);
 struct Musica* removeMusica(struct Lista *lista, char *nome);
 struct Musica* buscarMusica(struct Lista *lista, char *nome);
 void listarMusicas(struct Lista lista);
-
 void lendoMusica(char **nomeMusica);
 
 void main(void){
@@ -45,21 +44,7 @@ void main(void){
 
         
     // } while (opcao != 0);
-    
-    inserirNoInicio(&lista, "teste3");
-    inserirNoInicio(&lista, "teste2");
-    inserirNoInicio(&lista, "teste1");
-    // inserirNoInicio(&lista, "asdf1");
-    inserirNoInicio(&lista, "asdf2");
-    inserirNoInicio(&lista, "asdf3");
-    inserirNoInicio(&lista, "asdf4");
-    removeMusica(&lista, "asdf3");
-    inserirNoFim(&lista, "asdf1");
-    // inserirNoFim(&lista, "asdf2");
-    inserirNoFim(&lista, "asdf3");
-    // inserirNoFim(&lista, "asdf4");
 
-    listarMusicas(lista);
 }
 
 // Inicializando a lista de musicas
@@ -220,10 +205,9 @@ struct Musica *buscarMusica(struct Lista *lista, char *nome){
 */
 
 void lendoMusica(char **nomeMusica){
-    char auxNome[200];
-
+    char auxNome[3000];
     printf("Inserir nome da musica: ");
-    fgets(auxNome,200,stdin);
-    *nomeMusica = (char *) malloc(strlen(auxNome)*sizeof(char));
-    strncpy(*nomeMusica, auxNome, sizeof(nomeMusica));
+    fgets(auxNome, sizeof(auxNome),stdin);
+    *nomeMusica = (char *)malloc((strlen(auxNome) + 1) * sizeof(char));
+    strcpy(*nomeMusica, auxNome);
 }
