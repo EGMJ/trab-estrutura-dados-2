@@ -28,23 +28,36 @@ void lendoMusica(char **nomeMusica);
 
 void main(void){
     setlocale(LC_ALL, "Portuguese");
+
     // inicializando a lista.
     struct Lista lista;
     inicializarLista(&lista);
 
+    // criando as variaveis
+    int opcao;
+    char *nomeMusica;
+    struct Musica *musicaRemovida;
+
+    // criando o switch case
+    // do{
+    //     printf("\n0 - Sair\n1 - Inserir no Inicio\n2 - inserir no Fim\n3 - Remover\n4 - Listar\n5 - Buscar\n");
+    //     scanf("%d", &opcao);
+
+        
+    // } while (opcao != 0);
+    
     inserirNoInicio(&lista, "teste3");
     inserirNoInicio(&lista, "teste2");
     inserirNoInicio(&lista, "teste1");
-    inserirNoInicio(&lista, "asdf1");
+    // inserirNoInicio(&lista, "asdf1");
     inserirNoInicio(&lista, "asdf2");
     inserirNoInicio(&lista, "asdf3");
     inserirNoInicio(&lista, "asdf4");
     removeMusica(&lista, "asdf3");
-    // inserirNoFim(&lista, "asdf1");
+    inserirNoFim(&lista, "asdf1");
     // inserirNoFim(&lista, "asdf2");
-    // inserirNoFim(&lista, "asdf3");
+    inserirNoFim(&lista, "asdf3");
     // inserirNoFim(&lista, "asdf4");
-
 
     listarMusicas(lista);
 }
@@ -88,7 +101,7 @@ void inserirNoInicio(struct Lista *lista, char *nome){
 }
 
 void inserirNoFim(struct Lista *lista, char *nome){
-    struct Musica *musica, *aux = (struct Musica *) malloc(sizeof(struct Musica));
+    struct Musica *musica = (struct Musica *) malloc(sizeof(struct Musica));
     
     if(musica){
         // atribuindo o valor 
@@ -170,12 +183,12 @@ void listarMusicas(struct Lista lista){
     if(musica){
         do
         {
-            printf("%s\n", musica->nome);
+            printf("%s, ", musica->nome);
             musica = musica->proxima;
         } while (musica != lista.inicio);
-        printf("\n Inicio: %s", lista.inicio->nome);
-        printf("\n Fim: %s", lista.fim->nome);
-        printf("\n Proxima do Fim (inicio): %s", lista.fim->proxima->nome);
+        printf("\n\nInicio: %s", lista.inicio->nome);
+        printf("\nFim: %s", lista.fim->nome);
+        printf("\nProxima do Fim (inicio): %s", lista.fim->proxima->nome);
 
         printf("\n\n");
 
@@ -198,12 +211,12 @@ struct Musica *buscarMusica(struct Lista *lista, char *nome){
 }
 
 /* TODO     
-        2. Uma função de busca de músicas por nomes
-        4. Remoção de músicas por nome ou por ordem        
-        5. Adição de músicas sem ser manualmente
+    2. Adição de músicas sem ser manualmente atraves de um switch case
+    3. Ajustar a funcao inserir no final
+    4. Ajustar a funcao Lendo musica
 
     PROBLEMA IDENTIFICADO:
-        1. ao adicionar um item se só apertar enter entra como um item
+    1. ao adicionar um item se só apertar enter entra como um item
 */
 
 void lendoMusica(char **nomeMusica){
