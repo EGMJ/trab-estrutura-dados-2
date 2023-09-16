@@ -36,7 +36,7 @@ void inicializarLista(struct Lista *lista)
 void inserirNoInicio(struct Lista *lista, char *nome)
 {
     // criando uma estrutura da musica ou do nó
-    struct Musica *musica = (struct Musica *)malloc(sizeof(struct Musica)); 
+    struct Musica *musica = (struct Musica *)malloc(sizeof(struct Musica));
 
     // se a estrutura da musica for criada
     if (musica)
@@ -66,6 +66,7 @@ void inserirNoInicio(struct Lista *lista, char *nome)
     }
 }
 
+// para inserir a musica no fim da lista
 void inserirNoFim(struct Lista *lista, char *nome)
 {
     struct Musica *musica = (struct Musica *)malloc(sizeof(struct Musica));
@@ -101,6 +102,7 @@ void inserirNoFim(struct Lista *lista, char *nome)
     }
 }
 
+// para remover a musica da lista
 struct Musica *removeMusica(struct Lista *lista, char *nome)
 {
     struct Musica *aux, *remover = NULL;
@@ -163,6 +165,7 @@ struct Musica *removeMusica(struct Lista *lista, char *nome)
     return remover;
 }
 
+// para listar as musicas
 void listarMusicas(struct Lista lista)
 {
     struct Musica *musica = lista.inicio;
@@ -186,6 +189,7 @@ void listarMusicas(struct Lista lista)
     printf("\n");
 }
 
+// para buscar uma musica
 struct Musica *buscarMusica(struct Lista *lista, char *nome)
 {
     struct Musica *aux = lista->inicio;
@@ -194,7 +198,7 @@ struct Musica *buscarMusica(struct Lista *lista, char *nome)
         do
         {
             if (strcmp(aux->nome, nome) == 0)
-            {               // verifica se tem alguma diferença entre as strings e se nao tiver
+            {                     // verifica se tem alguma diferença entre as strings e se nao tiver
                 return aux->nome; // retorna o nome no auxiliar
                 // return aux; // retorna o auxiliar
             }
@@ -204,7 +208,7 @@ struct Musica *buscarMusica(struct Lista *lista, char *nome)
     return NULL;
 }
 
-// char lendoMusica(char **nomeMusica)
+// para ler a entrada da musica pelo usuario
 char *lendoMusica()
 {
     char auxNome[3000];
@@ -212,7 +216,8 @@ char *lendoMusica()
 
     // // removendo a quebra de linha
     char *quebraLinha = strchr(auxNome, '\n');
-    if(quebraLinha){
+    if (quebraLinha)
+    {
         *quebraLinha = '\0';
     }
     char *nomeMusica = (char *)malloc((strlen(auxNome) + 1) * sizeof(char));
@@ -220,14 +225,29 @@ char *lendoMusica()
     return nome;
 }
 
+void menu(void)
+{
+    printf("\n0 - Sair");
+    printf("\n1 - Inserir no Inicio");
+    printf("\n2 - inserir no Fim");
+    printf("\n3 - Remover");
+    printf("\n4 - Listar");
+    printf("\n5 - Buscar\n");
+    printf("\nQual é a opção: ");
+}
+
 void main(void)
 {
+    // para finalizar o falta é a estrutura final para imprimir na tela um menu paro o usoario
     setlocale(LC_ALL, "Portuguese");
 
     // inicializando a lista.
     struct Lista lista;
     inicializarLista(&lista);
 
+    int opcao;
+
+    /*
     char *nomeTeste = lendoMusica();
     inserirNoFim(&lista, nomeTeste);
     char *nomeTeste1 = lendoMusica();
@@ -240,27 +260,25 @@ void main(void)
     inserirNoFim(&lista, "Moça Tiee");
 
     // removeMusica(&lista, "caves in");
-    // printf("\n\n");    
+    // printf("\n\n");
     listarMusicas(lista);
     // printf("\n\n");
-    
-    // char *nome1 = buscarMusica(&lista, "caves in");
-    // printf("\n\n O nome é:__ %s __ ", nome1);
-    
-    // printf("\n\n");
 
-    // char *nome2 = buscarMusica(&lista, "Moça Tiee");
-    // printf("\n\n O nome é:__ %s __ ", nome2);
+    char *nome1 = buscarMusica(&lista, "caves in");
+    printf("\n\n O nome é:__ %s __ ", nome1);
 
-    // printf("\n\n");
-    // listarMusicas(lista);
+    printf("\n\n");
 
-    // criando as variaveis
-    int opcao = 9;
-    char *nomeMusica;
-    struct Musica *Removida;
+    char *nome2 = buscarMusica(&lista, "Moça Tiee");
+    printf("\n\n O nome é:__ %s __ ", nome2);
 
-    /*
+    printf("\n\n");
+    listarMusicas(lista);
+
+    //criando as variaveis
+    // char *nomeMusica;
+    // struct Musica *Removida;
+
     printf("Quantas musicas você quer inserir na lista? ");
     scanf("%d",&quant);
 
@@ -290,24 +308,19 @@ void main(void)
     */
 
     // criando o switch case
-    // while (opcao != 0)
-    // do{
-    // {
-        /*  
-        
-        printf("\n0 - Sair");
-        printf("\n1 - Inserir no Inicio");
-        printf("\n2 - inserir no Fim");
-        printf("\n3 - Remover");
-        printf("\n4 - Listar");
-        printf("\n5 - Buscar\n");
-        printf("\nQual é a opção: ");
-        
+    do
+    {
+        menu();
         scanf("%d", &opcao);
-       
-        switch(opcao)
+
+        switch (opcao)
         {
+        case 0:
+            system("clear"); // para limpar o terminal de saida na linux para window é cls
+            printf("Saindo do menu...");
+            break;
         case 1:
+            system("clear");
             printf("Inserir nome da musica: ");
             // lendoMusica(&nomeMusica);
             // lendoMusica();
@@ -316,12 +329,14 @@ void main(void)
             break;
 
         case 2:
+            system("clear");
             printf("Inserir nome da musica: ");
             // lendoMusica(&nomeMusica);
             // inserirNoFim(&lista, nomeMusica);
             break;
 
         case 3:
+            system("clear");
             printf("\n Digite o valor a ser removido: ");
             // lendoMusica(&nomeMusica);
 
@@ -330,43 +345,44 @@ void main(void)
             // Removida = removeMusica(&lista, nomeMusica);
             // if (Removida)
             // {
-                // printf("Musica removida: %s", Removida->nome);
-                // free(Removida);
+            // printf("Musica removida: %s", Removida->nome);
+            // free(Removida);
             // }
             // else
             // {
-                // printf("Elemento inesistente.\n");
+            // printf("Elemento inesistente.\n");
             // }
-
             break;
 
         case 4:
+            system("clear");
             // listarMusicas(lista);
             break;
         case 5:
+            system("clear");
+
             printf("\n Digite o valor a ser buscado: ");
             // lendoMusica(&nomeMusica);
             // Removida = buscarMusica(&lista, nomeMusica);
             // if (Removida)
             // {
-                // printf("Musica encontrada: %s\n", Removida->nome);
+            // printf("Musica encontrada: %s\n", Removida->nome);
             // }
             // else
             // {
-                printf("Musica inesistente.\n");
+            printf("Musica inesistente.\n");
             // }
 
             break;
         default:
-            if (opcao != 0)
-            {
-                printf("\nOpção invalida\n");
-            }
+            system("clear");
+            // if (opcao != 0)
+            // {
+            printf("\nOpção invalida\n");
+            // }
             break;
         }
-    return;
-        */
 
-    // }
-    // } while(opcao != 0);
+        // }
+    } while (opcao);
 }
