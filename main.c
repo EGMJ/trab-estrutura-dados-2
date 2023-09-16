@@ -205,14 +205,19 @@ struct Musica *buscarMusica(struct Lista *lista, char *nome)
 }
 
 // char lendoMusica(char **nomeMusica)
-char lendoMusica()
+char *lendoMusica()
 {
     char auxNome[3000];
     fgets(auxNome, sizeof(auxNome), stdin);
-    // *nomeMusica = (char *)malloc((strlen(auxNome) + 1) * sizeof(char));
-    // *auxNome = (char *)malloc((strlen(auxNome) + 1) * sizeof(char));
-    // strcpy(*nomeMusica, auxNome);
-    return *auxNome;
+
+    // // removendo a quebra de linha
+    char *quebraLinha = strchr(auxNome, '\n');
+    if(quebraLinha){
+        *quebraLinha = '\0';
+    }
+    char *nomeMusica = (char *)malloc((strlen(auxNome) + 1) * sizeof(char));
+    char *nome = strdup(auxNome);
+    return nome;
 }
 
 void main(void)
@@ -223,25 +228,32 @@ void main(void)
     struct Lista lista;
     inicializarLista(&lista);
 
-    inserirNoFim(&lista, "As the world");
+    char *nomeTeste = lendoMusica();
+    inserirNoFim(&lista, nomeTeste);
+    char *nomeTeste1 = lendoMusica();
+    inserirNoFim(&lista, nomeTeste1);
+    char *nomeTeste2 = lendoMusica();
+    inserirNoFim(&lista, nomeTeste2);
+
+    // free(nomeTeste);
     inserirNoFim(&lista, "caves in");
     inserirNoFim(&lista, "Moça Tiee");
 
-    removeMusica(&lista, "caves in");
-    printf("\n\n");    
+    // removeMusica(&lista, "caves in");
+    // printf("\n\n");    
     listarMusicas(lista);
-    printf("\n\n");
+    // printf("\n\n");
     
-    char *nome1 = buscarMusica(&lista, "caves in");
-    printf("\n\n O nome é:__ %s __ ", nome1);
+    // char *nome1 = buscarMusica(&lista, "caves in");
+    // printf("\n\n O nome é:__ %s __ ", nome1);
     
-    printf("\n\n");
+    // printf("\n\n");
 
-    char *nome2 = buscarMusica(&lista, "Moça Tiee");
-    printf("\n\n O nome é:__ %s __ ", nome2);
+    // char *nome2 = buscarMusica(&lista, "Moça Tiee");
+    // printf("\n\n O nome é:__ %s __ ", nome2);
 
-    printf("\n\n");
-    listarMusicas(lista);
+    // printf("\n\n");
+    // listarMusicas(lista);
 
     // criando as variaveis
     int opcao = 9;
