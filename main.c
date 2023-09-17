@@ -200,8 +200,8 @@ struct Musica *buscarMusica(struct Lista *lista, char *nome)
         {
             if (strcmp(aux->nome, nome) == 0)
             {                     // verifica se tem alguma diferença entre as strings e se nao tiver
-                return aux->nome; // retorna o nome no auxiliar
-                // return aux; // retorna o auxiliar
+                // return aux->nome; // retorna o nome no auxiliar
+                return aux; // retorna o auxiliar
             }
             aux = aux->proxima;
         } while (aux != lista->inicio);
@@ -210,7 +210,6 @@ struct Musica *buscarMusica(struct Lista *lista, char *nome)
 }
 
 // para ler a entrada da musica pelo usuario
-
 
 char *lendoMusica()
 {
@@ -223,36 +222,11 @@ char *lendoMusica()
     {
         *quebraLinha = '\0';
     }
-    //char *nome = (char *)malloc((strlen(auxNome) + 1) * sizeof(char));
-    // char c;
-    // while ((c = getchar()) != '\n' && c != EOF);
+    // char *nome = (char *)malloc((strlen(auxNome) + 1) * sizeof(char));
 
     char *nome = strdup(auxNome);
     return nome;
 }
-/*
-char *lendoMusica()
-{
-    char auxNome[3000];
-    fgets(auxNome, sizeof(auxNome), stdin);
-
-    // Removendo a quebra de linha (\n), se existir
-    char *quebraLinha = strchr(auxNome, '\n');
-    if (quebraLinha)
-    {
-        *quebraLinha = '\0'; // Substitui o '\n' pelo terminador nulo
-    }
-    
-    // Limpar o buffer do teclado
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-
-    char *nome = strdup(auxNome);
-    return nome;
-}
-// ?
-*/
-
 
 void menu(void)
 {
@@ -272,6 +246,7 @@ void main(void)
 
     // inicializando a lista.
     struct Lista lista;
+    struct Musica *Removida;
     inicializarLista(&lista);
 
     int opcao;
@@ -282,9 +257,10 @@ void main(void)
         menu();
         scanf("%d", &opcao);
 
-        // limpa a opcao selecionada para nao ter interferença na proxima opcao 
+        // limpa a opcao selecionada para nao ter interferença na proxima opcao
         int c;
-        while ((c = getchar()) != '\n' && c != EOF);
+        while ((c = getchar()) != '\n' && c != EOF)
+            ;
 
         switch (opcao)
         {
@@ -292,56 +268,59 @@ void main(void)
             system("clear"); // para limpar o terminal de saida na linux para window é cls
             printf("Saindo do menu...");
             break;
+        
         case 1:
             system("clear");
-            printf("Digite o nome da musica para o inicio: ");
+            printf("Musica para inserir no inicio: ");
             char *nomeNoInicio = lendoMusica();
-            // if(nomeNoInicio){
-                inserirNoInicio(&lista, nomeNoInicio);
-            // }
-             printf("Música inserida: %s", nomeNoInicio);
+            inserirNoInicio(&lista, nomeNoInicio);
             break;
+        
         case 2:
             system("clear");
-            printf("Inserir nome da musica: ");
-            // char *nomeNoFim = lendoMusica();
-            // inserirNoFim(&lista, nomeNoFim);
+            printf("Musica para inserir no fim: ");
+            char *nomeNoFim = lendoMusica();
+            inserirNoFim(&lista, nomeNoFim);
             break;
+        
         case 3:
             system("clear");
-            printf("\n Digite o valor a ser removido: ");
-            // char *nomeRemovido = lendoMusica();
+            printf("\n Digite o nome a ser removido: ");
+            char *nomeRemovido = lendoMusica();
 
-            // Removida = removeMusica(&lista, nomeRemovido);
-            // if (Removida)
-            // {
-            // printf("Musica removida: %s", Removida->nome);
-            // free(Removida);
-            // }
-            // else
-            // {
-            // printf("Elemento inesistente.\n");
-            // }
+            Removida = removeMusica(&lista, nomeRemovido);
+            if (Removida)
+            {
+                printf("Musica removida: %s", Removida->nome);
+                free(Removida);
+            }
+            else
+            {
+                printf("Elemento inesistente.\n");
+            }
             break;
+        
         case 4:
             system("clear");
             listarMusicas(lista);
             break;
+        
         case 5:
             system("clear");
             printf("\n Digite o valor a ser buscado: ");
-            // char *nomeBuscado = lendoMusica();
+            char *nomeBuscado = lendoMusica();
 
-            // Removida = buscarMusica(&lista, nomeBuscado);
-            // if (Removida)
-            // {
-            // printf("Musica encontrada: %s\n", Removida->nome);
-            // }
-            // else
-            // {
-            // printf("Musica inesistente.\n");
-            // }
+            Removida = buscarMusica(&lista, nomeBuscado);
+            if (Removida)
+            {
+                printf("Musica encontrada: %s\n", Removida->nome);
+            }
+            else
+            {
+                printf("Musica inesistente.\n");
+            }
             break;
+        
         default:
             system("clear");
             printf("\nOpção invalida\n");
