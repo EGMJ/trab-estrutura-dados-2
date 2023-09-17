@@ -64,6 +64,7 @@ void inserirNoInicio(struct Lista *lista, char *nome)
     {
         printf("Erro na alocação de memória");
     }
+    return;
 }
 
 // para inserir a musica no fim da lista
@@ -209,6 +210,8 @@ struct Musica *buscarMusica(struct Lista *lista, char *nome)
 }
 
 // para ler a entrada da musica pelo usuario
+
+
 char *lendoMusica()
 {
     char auxNome[3000];
@@ -220,10 +223,36 @@ char *lendoMusica()
     {
         *quebraLinha = '\0';
     }
-    char *nomeMusica = (char *)malloc((strlen(auxNome) + 1) * sizeof(char));
+    //char *nome = (char *)malloc((strlen(auxNome) + 1) * sizeof(char));
+    // char c;
+    // while ((c = getchar()) != '\n' && c != EOF);
+
     char *nome = strdup(auxNome);
     return nome;
 }
+/*
+char *lendoMusica()
+{
+    char auxNome[3000];
+    fgets(auxNome, sizeof(auxNome), stdin);
+
+    // Removendo a quebra de linha (\n), se existir
+    char *quebraLinha = strchr(auxNome, '\n');
+    if (quebraLinha)
+    {
+        *quebraLinha = '\0'; // Substitui o '\n' pelo terminador nulo
+    }
+    
+    // Limpar o buffer do teclado
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    char *nome = strdup(auxNome);
+    return nome;
+}
+// ?
+*/
+
 
 void menu(void)
 {
@@ -247,71 +276,15 @@ void main(void)
 
     int opcao;
 
-    /*
-    char *nomeTeste = lendoMusica();
-    inserirNoFim(&lista, nomeTeste);
-    char *nomeTeste1 = lendoMusica();
-    inserirNoFim(&lista, nomeTeste1);
-    char *nomeTeste2 = lendoMusica();
-    inserirNoFim(&lista, nomeTeste2);
-
-    // free(nomeTeste);
-    inserirNoFim(&lista, "caves in");
-    inserirNoFim(&lista, "Moça Tiee");
-
-    // removeMusica(&lista, "caves in");
-    // printf("\n\n");
-    listarMusicas(lista);
-    // printf("\n\n");
-
-    char *nome1 = buscarMusica(&lista, "caves in");
-    printf("\n\n O nome é:__ %s __ ", nome1);
-
-    printf("\n\n");
-
-    char *nome2 = buscarMusica(&lista, "Moça Tiee");
-    printf("\n\n O nome é:__ %s __ ", nome2);
-
-    printf("\n\n");
-    listarMusicas(lista);
-
-    //criando as variaveis
-    // char *nomeMusica;
-    // struct Musica *Removida;
-
-    printf("Quantas musicas você quer inserir na lista? ");
-    scanf("%d",&quant);
-
-    for(i = 0; i <= quant; i++){
-    // if(quant){
-    printf("\nDigite o nome da musica a ser adicionada: ");
-    lendoMusica(&nomeMusica);
-    // inserirNoInicio(&lista, nomeMusica);
-    // }
-
-    }
-
-    listarMusicas(lista);
-
-    lendoMusica(&nomeMusica);
-    inserirNoInicio(&lista, nomeMusica);
-    lendoMusica(&nomeMusica);
-    inserirNoInicio(&lista, nomeMusica);
-    inserirNoInicio(&lista, "teste1");
-    inserirNoInicio(&lista, "teste2");
-    printf("tamanho da lista: %d", lista.tam);
-
-    removeMusica(&lista, "teste1");
-    listarMusicas(lista);
-
-    printf("tamanho da lista: %d", lista.tam);
-    */
-
     // criando o switch case
     do
     {
         menu();
         scanf("%d", &opcao);
+
+        // limpa a opcao selecionada para nao ter interferença na proxima opcao 
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
 
         switch (opcao)
         {
@@ -321,28 +294,25 @@ void main(void)
             break;
         case 1:
             system("clear");
-            printf("Inserir nome da musica: ");
-            // lendoMusica(&nomeMusica);
-            // lendoMusica();
-            // char nomeAux = lendoMusica();
-            // inserirNoInicio(&lista, &nomeAux);
+            printf("Digite o nome da musica para o inicio: ");
+            char *nomeNoInicio = lendoMusica();
+            // if(nomeNoInicio){
+                inserirNoInicio(&lista, nomeNoInicio);
+            // }
+             printf("Música inserida: %s", nomeNoInicio);
             break;
-
         case 2:
             system("clear");
             printf("Inserir nome da musica: ");
-            // lendoMusica(&nomeMusica);
-            // inserirNoFim(&lista, nomeMusica);
+            // char *nomeNoFim = lendoMusica();
+            // inserirNoFim(&lista, nomeNoFim);
             break;
-
         case 3:
             system("clear");
             printf("\n Digite o valor a ser removido: ");
-            // lendoMusica(&nomeMusica);
+            // char *nomeRemovido = lendoMusica();
 
-            // strcmp(musicaRemovida->nome,nomeMusica);
-
-            // Removida = removeMusica(&lista, nomeMusica);
+            // Removida = removeMusica(&lista, nomeRemovido);
             // if (Removida)
             // {
             // printf("Musica removida: %s", Removida->nome);
@@ -353,36 +323,29 @@ void main(void)
             // printf("Elemento inesistente.\n");
             // }
             break;
-
         case 4:
             system("clear");
-            // listarMusicas(lista);
+            listarMusicas(lista);
             break;
         case 5:
             system("clear");
-
             printf("\n Digite o valor a ser buscado: ");
-            // lendoMusica(&nomeMusica);
-            // Removida = buscarMusica(&lista, nomeMusica);
+            // char *nomeBuscado = lendoMusica();
+
+            // Removida = buscarMusica(&lista, nomeBuscado);
             // if (Removida)
             // {
             // printf("Musica encontrada: %s\n", Removida->nome);
             // }
             // else
             // {
-            printf("Musica inesistente.\n");
+            // printf("Musica inesistente.\n");
             // }
-
             break;
         default:
             system("clear");
-            // if (opcao != 0)
-            // {
             printf("\nOpção invalida\n");
-            // }
             break;
         }
-
-        // }
     } while (opcao);
 }
