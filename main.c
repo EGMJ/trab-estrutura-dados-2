@@ -187,6 +187,21 @@ void listarMusicas(struct Lista lista)
     {
         printf("A lista está vazia...");
     }
+
+    int vezesImpress;
+    printf("\n\nProvando a Circularidade da lista:\n");
+    printf("Quantas vezes você quer que a lista seja impressa? \n");
+
+    scanf("%d", &vezesImpress);
+    printf("A lista será impressa, %d vezes: ", vezesImpress);
+
+    int cont = 0;
+    do
+    {
+        printf("%s, ", musica->nome);
+        musica = musica->proxima;
+        cont++;
+    } while (cont < vezesImpress);
     printf("\n");
 }
 
@@ -199,7 +214,7 @@ struct Musica *buscarMusica(struct Lista *lista, char *nome)
         do
         {
             if (strcmp(aux->nome, nome) == 0)
-            {                     // verifica se tem alguma diferença entre as strings e se nao tiver
+            { // verifica se tem alguma diferença entre as strings e se nao tiver
                 // return aux->nome; // retorna o nome no auxiliar
                 return aux; // retorna o auxiliar
             }
@@ -268,21 +283,21 @@ void main(void)
             system("clear"); // para limpar o terminal de saida na linux para window é cls
             printf("Saindo do menu...");
             break;
-        
+
         case 1:
             system("clear");
             printf("Musica para inserir no inicio: ");
             char *nomeNoInicio = lendoMusica();
             inserirNoInicio(&lista, nomeNoInicio);
             break;
-        
+
         case 2:
             system("clear");
             printf("Musica para inserir no fim: ");
             char *nomeNoFim = lendoMusica();
             inserirNoFim(&lista, nomeNoFim);
             break;
-        
+
         case 3:
             system("clear");
             printf("\n Digite o nome a ser removido: ");
@@ -299,12 +314,12 @@ void main(void)
                 printf("Elemento inesistente.\n");
             }
             break;
-        
+
         case 4:
             system("clear");
             listarMusicas(lista);
             break;
-        
+
         case 5:
             system("clear");
             printf("\n Digite o valor a ser buscado: ");
@@ -320,7 +335,7 @@ void main(void)
                 printf("Musica inesistente.\n");
             }
             break;
-        
+
         default:
             system("clear");
             printf("\nOpção invalida\n");
